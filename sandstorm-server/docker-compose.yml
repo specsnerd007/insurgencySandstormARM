@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  sandstorm-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sandstorm-server
+    ports:
+      - "27102:27102/udp"  # Game server port
+      - "27131:27131/udp"  # Query port
+    volumes:
+      - /home/ubuntu/sandstorm-server/data:/sandstorm_server  # Bind mount
+    environment:
+      - BOX64_LOG=1  # Optional, for Box64 debugging logs
+    restart: unless-stopped
